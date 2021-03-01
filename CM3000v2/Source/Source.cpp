@@ -38,9 +38,11 @@ int main()
     backgroundButton.hoverColor = { 128, 128, 128, 255 };
     backgroundButton.pressColor = { 128, 128, 128, 255 };
     sf::Vector2i dragMousePos = {0,0};
+    bool bDraggingWindow = false;
     backgroundButton.OnPressBinding = [&]()
     {
         dragMousePos = sf::Mouse::getPosition(window);
+        bDraggingWindow = true;
     };
 
     sf::RectangleShape buttonsRect;
@@ -129,12 +131,19 @@ int main()
     sf::Clock clock;
     while (window.isOpen())
     {
-        sf::sleep(sf::milliseconds(2));
+        if (!bDraggingWindow)
+        {
+            sf::sleep(sf::milliseconds(2));
 
-        if (clock.getElapsedTime().asMilliseconds() < 16)
-            continue;
+            if (clock.getElapsedTime().asMilliseconds() < 16)
+                continue;
+            else
+                clock.restart();
+        }
         else
+        {
             clock.restart();
+        }
 
         sf::Event event;
         while (window.pollEvent(event))
@@ -148,9 +157,16 @@ int main()
         for(auto& e : buttons)
             e->Poll(window);
 
-        if (backgroundButton.bPressed)
+        if (bDraggingWindow)
         {
-            window.setPosition(sf::Mouse::getPosition() - dragMousePos);
+            if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+            {
+                window.setPosition(sf::Mouse::getPosition() - dragMousePos);
+            }
+            else
+            {
+                bDraggingWindow = false;
+            }
         }
 
         //////////////////////////////////////////////////////////////////////////
