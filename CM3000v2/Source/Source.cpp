@@ -6,7 +6,7 @@
 #include <Dwmapi.h>
 
 #pragma comment (lib, "Dwmapi.lib")
-//#pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")		// Disable console
+#pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")		// Disable console
 
 int main()
 {
@@ -88,6 +88,7 @@ int main()
     cpsButton.baseColor = { 180, 180, 180, 255 };
     cpsButton.hoverColor = { 140, 100, 30, 255 };
     unsigned char cpsState = 1;
+    unsigned char cpsDowntime = 16;
     cpsButton.OnReleaseBinding = [&]()
     {
         if (cpsState < 2)
@@ -99,12 +100,15 @@ int main()
         {
         case 0:
             cpsButton.baseSprite.setTexture(cpsTex);
+            cpsDowntime = 32;
             break;
         case 1:
             cpsButton.baseSprite.setTexture(cpsTex1);
+            cpsDowntime = 16;
             break;
         case 2:
             cpsButton.baseSprite.setTexture(cpsTex2);
+            cpsDowntime = 8;
             break;
         }
     };
@@ -135,7 +139,7 @@ int main()
         {
             sf::sleep(sf::milliseconds(2));
 
-            if (clock.getElapsedTime().asMilliseconds() < 16)
+            if (clock.getElapsedTime().asMilliseconds() < cpsDowntime)
                 continue;
             else
                 clock.restart();

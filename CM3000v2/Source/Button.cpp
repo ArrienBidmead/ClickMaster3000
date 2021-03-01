@@ -12,17 +12,30 @@ void Button::Poll(sf::RenderWindow &window)
 	if (mousePos.x >= getPosition().x && mousePos.y >= getPosition().y 
 		&& mousePos.x < getPosition().x + baseSprite.getTexture()->getSize().x && mousePos.y < getPosition().y + baseSprite.getTexture()->getSize().y)
 	{
+		bool bMouseLeftDown = sf::Mouse::isButtonPressed(sf::Mouse::Left);
+
 		if (!bHovered)
 		{
 			bHovered = true;
 			UpdateColors();
 
 			OnHoverBinding();
+
+			if (bMouseLeftDown)
+				bRejectPress = true;
 		}
 
+		if (bRejectPress)
+		{
+			if (!bMouseLeftDown)
+			{
+				bRejectPress = false;
+			}
+		}
+		else
 		if (!bPressed)
 		{
-			if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+			if (bMouseLeftDown)
 			{
 				bPressed = true;
 				UpdateColors();
@@ -32,7 +45,7 @@ void Button::Poll(sf::RenderWindow &window)
 		}
 		else
 		{
-			if (!sf::Mouse::isButtonPressed(sf::Mouse::Left))
+			if (!bMouseLeftDown)
 			{
 				bPressed = false;
 				UpdateColors();
@@ -47,6 +60,7 @@ void Button::Poll(sf::RenderWindow &window)
 		{
 			bHovered = false;
 			bPressed = false;
+			bRejectPress = false;
 			UpdateColors();
 
 			OnUnHoverBinding();

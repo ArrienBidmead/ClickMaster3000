@@ -23,6 +23,7 @@ public:
 
 	bool bHovered = false;
 	bool bPressed = false;
+	bool bRejectPress = false;
 
 	Button();
 	void Poll(sf::RenderWindow &window);
