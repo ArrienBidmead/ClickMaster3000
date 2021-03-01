@@ -16,6 +16,7 @@ class CM3000v2
     Button armButton;
     sf::Texture armTex;
     bool bArmed = false;
+    bool bActive = false;
 
     Button cpsButton;
     sf::Texture cpsTex;

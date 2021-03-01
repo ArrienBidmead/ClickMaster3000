@@ -94,7 +94,7 @@ void CM3000v2::Init()
     exitButton.hoverColor = { 140, 30, 30, 255 };
     exitButton.OnReleaseBinding = [&]()
     {
-        exit(0);
+        window.close();
     };
 
     buttons[0] = &backgroundButton;
@@ -120,6 +120,32 @@ void CM3000v2::Update()
         else
         {
             bDraggingWindow = false;
+        }
+    }
+
+    if (bActive)
+    {
+        if (!bArmed || !GetKeyState(VK_CAPITAL))
+        {
+            bActive = false;
+            backgroundButton.baseColor = sf::Color(128, 128, 128, 255);
+            backgroundButton.hoverColor = sf::Color(128, 128, 128, 255);
+            backgroundButton.pressColor = sf::Color(128, 128, 128, 255);
+            backgroundButton.UpdateColors();
+        }
+
+        mouse_event(MOUSEEVENTF_LEFTDOWN, MOUSEEVENTF_ABSOLUTE, MOUSEEVENTF_ABSOLUTE, 0, 0);
+        mouse_event(MOUSEEVENTF_LEFTUP, MOUSEEVENTF_ABSOLUTE, MOUSEEVENTF_ABSOLUTE, 0, 0);
+    }
+    else
+    {
+        if (bArmed && GetKeyState(VK_CAPITAL))
+        {
+            bActive = true;
+            backgroundButton.baseColor = sf::Color(255, 0, 0, 255);
+            backgroundButton.hoverColor = sf::Color(255, 0, 0, 255);
+            backgroundButton.pressColor = sf::Color(255, 0, 0, 255);
+            backgroundButton.UpdateColors();
         }
     }
 }
