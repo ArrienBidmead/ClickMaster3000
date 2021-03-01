@@ -29,5 +29,8 @@
     <ClInclude Include="Source\Textures.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Source.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
