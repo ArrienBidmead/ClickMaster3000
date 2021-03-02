@@ -31,6 +31,8 @@ class CM3000v2
 
     Button* buttons[5];
 
+    std::thread clickThread;
+
     void Init();
     void Update();
     void Draw();

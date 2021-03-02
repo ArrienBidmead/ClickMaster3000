@@ -70,12 +70,15 @@ void Button::Poll(sf::RenderWindow &window)
 
 void Button::Draw(sf::RenderWindow* window)
 {
-	baseSprite.setPosition(getPosition());
-	baseSprite.setRotation(getRotation());
-	baseSprite.setScale(getScale());
-	hoverSprite.setPosition(getPosition());
-	hoverSprite.setRotation(getRotation());
-	hoverSprite.setScale(getScale());
+	if (getTransform() != baseSprite.getTransform())
+	{
+		baseSprite.setPosition(getPosition());
+		baseSprite.setRotation(getRotation());
+		baseSprite.setScale(getScale());
+		hoverSprite.setPosition(getPosition());
+		hoverSprite.setRotation(getRotation());
+		hoverSprite.setScale(getScale());
+	}
 
 	window->draw(baseSprite);
 

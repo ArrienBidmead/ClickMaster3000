@@ -4,6 +4,7 @@
 #include <iostream>
 #include <Windows.h>
 #include <Dwmapi.h>
+#include <thread>
 
 #include "Source.h"
 
@@ -50,11 +51,31 @@ void CM3000v2::Init()
         {
             armButton.baseColor = { 0, 255, 0, 255 };
             armButton.hoverColor = { 170, 255, 170, 255 };
+
+            clickThread = std::thread([&]()
+                {
+                    while (bArmed)
+                    {
+                        if (bActive)
+                        {
+                            mouse_event(MOUSEEVENTF_LEFTDOWN, MOUSEEVENTF_ABSOLUTE, MOUSEEVENTF_ABSOLUTE, 0, 0);
+                            Sleep(float(cpsDowntime) * 0.5);
+                            mouse_event(MOUSEEVENTF_LEFTUP, MOUSEEVENTF_ABSOLUTE, MOUSEEVENTF_ABSOLUTE, 0, 0);
+                            Sleep(float(cpsDowntime) * 0.5);
+                        }
+                        else
+                        {
+                            Sleep(8);
+                        }
+                    }
+                });
         }
         else
         {
             armButton.baseColor = { 180, 180, 180, 255 };
             armButton.hoverColor = { 30, 140, 30, 255 };
+
+            clickThread.join(); //Could be detach() but I don't have faith it will be terminated
         }
 
         armButton.UpdateColors();
@@ -136,9 +157,6 @@ void CM3000v2::Update()
             backgroundButton.baseColor = sf::Color(128, 128, 128, 255);
             backgroundButton.UpdateColors();
         }
-
-        mouse_event(MOUSEEVENTF_LEFTDOWN, MOUSEEVENTF_ABSOLUTE, MOUSEEVENTF_ABSOLUTE, 0, 0);
-        mouse_event(MOUSEEVENTF_LEFTUP, MOUSEEVENTF_ABSOLUTE, MOUSEEVENTF_ABSOLUTE, 0, 0);
     }
     else
     {
@@ -179,7 +197,7 @@ int CM3000v2::Run()
         {
             sf::sleep(sf::milliseconds(2));
 
-            if (clock.getElapsedTime().asMilliseconds() < cpsDowntime)
+            if (clock.getElapsedTime().asMilliseconds() < 16)
                 continue;
             else
                 clock.restart();
@@ -203,6 +221,12 @@ int CM3000v2::Run()
         Draw();
 
         window.display();
+    }
+
+    if (bArmed)
+    {
+        bArmed = false;
+        clickThread.join();
     }
 
     return 0;
