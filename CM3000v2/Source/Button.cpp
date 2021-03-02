@@ -79,7 +79,7 @@ void Button::Draw(sf::RenderWindow* window)
 
 	window->draw(baseSprite);
 
-	if(bHovered)
+	if(bHovered && !bStaticAppearance)
 		window->draw(hoverSprite);
 }
 
@@ -96,7 +96,7 @@ void Button::FinalizeInit()
 
 void Button::UpdateColors()
 {
-	if (bHovered)
+	if (bHovered && !bStaticAppearance)
 	{
 		if (bPressed)
 		{

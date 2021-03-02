@@ -21,8 +21,7 @@ void CM3000v2::Init()
     backgroundButton.hoverSprite.setColor(sf::Color::Transparent);
     backgroundButton.setPosition(0, 0);
     backgroundButton.baseColor = { 128, 128, 128, 255 };
-    backgroundButton.hoverColor = { 128, 128, 128, 255 };
-    backgroundButton.pressColor = { 128, 128, 128, 255 };
+    backgroundButton.bStaticAppearance = true;
     backgroundButton.OnPressBinding = [&]()
     {
         dragMousePos = sf::Mouse::getPosition(window);
@@ -129,8 +128,6 @@ void CM3000v2::Update()
         {
             bActive = false;
             backgroundButton.baseColor = sf::Color(128, 128, 128, 255);
-            backgroundButton.hoverColor = sf::Color(128, 128, 128, 255);
-            backgroundButton.pressColor = sf::Color(128, 128, 128, 255);
             backgroundButton.UpdateColors();
         }
 
@@ -143,8 +140,6 @@ void CM3000v2::Update()
         {
             bActive = true;
             backgroundButton.baseColor = sf::Color(255, 0, 0, 255);
-            backgroundButton.hoverColor = sf::Color(255, 0, 0, 255);
-            backgroundButton.pressColor = sf::Color(255, 0, 0, 255);
             backgroundButton.UpdateColors();
         }
     }
