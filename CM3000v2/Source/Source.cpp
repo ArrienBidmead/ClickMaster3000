@@ -15,10 +15,10 @@ void CM3000v2::Init()
     Textures textures;
 
     overlapTex.loadFromMemory(textures.ButtonOverlap1png, sizeof(textures.ButtonOverlap1png));
+    whiteTex.loadFromMemory(textures.WhiteSquarepng, sizeof(textures.WhiteSquarepng));
 
     backTex.loadFromMemory(textures.OuterBox1png, sizeof(textures.OuterBox1png));
     backgroundButton.baseSprite.setTexture(backTex, true);
-    backgroundButton.hoverSprite.setColor(sf::Color::Transparent);
     backgroundButton.setPosition(0, 0);
     backgroundButton.baseColor = { 128, 128, 128, 255 };
     backgroundButton.bStaticAppearance = true;
@@ -28,9 +28,11 @@ void CM3000v2::Init()
         bDraggingWindow = true;
     };
 
-    buttonsRect.setFillColor(sf::Color(0, 0, 0, 255));
+    buttonsRect.baseSprite.setTexture(whiteTex, true);
+    buttonsRect.baseColor = sf::Color(0, 0, 0, 255);
     buttonsRect.setPosition(8, 8);
-    buttonsRect.setSize(sf::Vector2f(overlapTex.getSize().x * 3, overlapTex.getSize().y));
+    buttonsRect.bStaticAppearance = true;
+    buttonsRect.setScale(sf::Vector2f(8 * 3, 8));
 
     armTex.loadFromMemory(textures.ArmButton1png, sizeof(textures.ArmButton1png));
     armButton.SetTextures(&armTex, &overlapTex);
@@ -97,9 +99,10 @@ void CM3000v2::Init()
     };
 
     buttons[0] = &backgroundButton;
-    buttons[1] = &armButton;
-    buttons[2] = &cpsButton;
-    buttons[3] = &exitButton;
+    buttons[1] = &buttonsRect;
+    buttons[2] = &armButton;
+    buttons[3] = &cpsButton;
+    buttons[4] = &exitButton;
 
     for (auto& e : buttons)
         e->FinalizeInit();
@@ -112,7 +115,7 @@ void CM3000v2::Update()
 
     if (bDraggingWindow)
     {
-        if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+        if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && !buttonsRect.bPressed)
         {
             window.setPosition(sf::Mouse::getPosition() - dragMousePos);
         }
@@ -147,10 +150,8 @@ void CM3000v2::Update()
 
 void CM3000v2::Draw()
 {
-    buttons[0]->Draw(&window);
-    window.draw(buttonsRect);       //yo, sort this out
-    for (int i = 1; i < 4; i++)
-        buttons[i]->Draw(&window);
+    for (auto& e : buttons)
+        e->Draw(&window);
 }
 
 int CM3000v2::Run()

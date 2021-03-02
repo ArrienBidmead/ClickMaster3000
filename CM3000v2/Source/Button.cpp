@@ -10,7 +10,7 @@ void Button::Poll(sf::RenderWindow &window)
 {
 	sf::Vector2i mousePos = sf::Mouse::getPosition(window);
 	if (mousePos.x >= getPosition().x && mousePos.y >= getPosition().y 
-		&& mousePos.x < getPosition().x + baseSprite.getTexture()->getSize().x && mousePos.y < getPosition().y + baseSprite.getTexture()->getSize().y)
+		&& mousePos.x < getPosition().x + baseSprite.getTexture()->getSize().x * getScale().x && mousePos.y < getPosition().y + baseSprite.getTexture()->getSize().y * getScale().y)
 	{
 		bool bMouseLeftDown = sf::Mouse::isButtonPressed(sf::Mouse::Left);
 

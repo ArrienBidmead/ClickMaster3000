@@ -5,13 +5,14 @@ class CM3000v2
     sf::RenderWindow window;
 
     sf::Texture overlapTex;
+    sf::Texture whiteTex;
 
     Button backgroundButton;
     sf::Texture backTex;
     sf::Vector2i dragMousePos = { 0,0 };
     bool bDraggingWindow = false;
 
-    sf::RectangleShape buttonsRect;
+    Button buttonsRect;
 
     Button armButton;
     sf::Texture armTex;
@@ -28,7 +29,7 @@ class CM3000v2
     Button exitButton;
     sf::Texture exitTex;
 
-    Button* buttons[4];
+    Button* buttons[5];
 
     void Init();
     void Update();
