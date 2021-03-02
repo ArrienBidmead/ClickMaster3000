@@ -7,7 +7,6 @@
 
 #include "Source.h"
 
-#pragma comment (lib, "Dwmapi.lib")
 #pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")		// Disable console
 
 void CM3000v2::Init()
