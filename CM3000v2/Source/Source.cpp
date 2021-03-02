@@ -33,6 +33,10 @@ void CM3000v2::Init()
     buttonsRect.setPosition(8, 8);
     buttonsRect.bStaticAppearance = true;
     buttonsRect.setScale(sf::Vector2f(8 * 3, 8));
+    buttonsRect.OnPressBinding = [&]()
+    {
+        bDraggingWindow = false;
+    };
 
     armTex.loadFromMemory(textures.ArmButton1png, sizeof(textures.ArmButton1png));
     armButton.SetTextures(&armTex, &overlapTex);
@@ -115,7 +119,7 @@ void CM3000v2::Update()
 
     if (bDraggingWindow)
     {
-        if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && !buttonsRect.bPressed)
+        if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
         {
             window.setPosition(sf::Mouse::getPosition() - dragMousePos);
         }
