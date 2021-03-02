@@ -14,6 +14,10 @@ void CM3000v2::Init()
 {
 	Textures textures;
 
+	sf::Image ic;
+	ic.loadFromMemory(textures.Iconpng, sizeof(textures.Iconpng));
+	window.setIcon(ic.getSize().x, ic.getSize().y, ic.getPixelsPtr());
+
 	overlapTex.loadFromMemory(textures.ButtonOverlap1png, sizeof(textures.ButtonOverlap1png));
 	whiteTex.loadFromMemory(textures.WhiteSquarepng, sizeof(textures.WhiteSquarepng));
 
