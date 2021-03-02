@@ -36,6 +36,7 @@ class CM3000v2
 	void Init();
 	void Update();
 	void Draw();
+	void Cleanup();
 public:
 	int Run();
 };

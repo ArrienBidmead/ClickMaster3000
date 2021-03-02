@@ -58,10 +58,11 @@ void CM3000v2::Init()
 					{
 						if (bActive)
 						{
+							unsigned char timing = int(float(cpsDowntime) * 0.5);
 							mouse_event(MOUSEEVENTF_LEFTDOWN, MOUSEEVENTF_ABSOLUTE, MOUSEEVENTF_ABSOLUTE, 0, 0);
-							Sleep(float(cpsDowntime) * 0.5);
+							Sleep(timing);
 							mouse_event(MOUSEEVENTF_LEFTUP, MOUSEEVENTF_ABSOLUTE, MOUSEEVENTF_ABSOLUTE, 0, 0);
-							Sleep(float(cpsDowntime) * 0.5);
+							Sleep(timing);
 						}
 						else
 						{
@@ -175,6 +176,15 @@ void CM3000v2::Draw()
 		e->Draw(&window);
 }
 
+void CM3000v2::Cleanup()
+{
+	if (bArmed)
+	{
+		bArmed = false;
+		clickThread.join();
+	}
+}
+
 int CM3000v2::Run()
 {
 	window.create(sf::VideoMode(208, 80), "ClickMaster 3000", sf::Style::None);
@@ -223,11 +233,7 @@ int CM3000v2::Run()
 		window.display();
 	}
 
-	if (bArmed)
-	{
-		bArmed = false;
-		clickThread.join();
-	}
+	Cleanup();
 
 	return 0;
 }
