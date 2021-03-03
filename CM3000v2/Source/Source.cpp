@@ -1,3 +1,19 @@
+//ClickMaster 3000 v2 - Auto clicker tool for use with clicker games
+//Copyright(C) 2021  Arrien Bidmead - Arrien.co.uk
+//
+//This program is free software : you can redistribute it and /or modify
+//it under the terms of the GNU General Public License as published by
+//the Free Software Foundation, either version 3 of the License, or
+//(at your option) any later version.
+//
+//This program is distributed in the hope that it will be useful,
+//but WITHOUT ANY WARRANTY; without even the implied warranty of
+//MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+//GNU General Public License for more details.
+//
+//You should have received a copy of the GNU General Public License
+//along with this program. If not, see <https://www.gnu.org/licenses/>.
+
 #include <SFML/Graphics.hpp>
 #include "Button.h"
 #include "Textures.h"
@@ -131,7 +147,7 @@ void CM3000v2::Init()
 	};
 
 	//Binary Tree
-	/*The binary tree is used for optimisation, a child node will only polled/updated if the mouse cursor is hovering over the parent node.
+	/*The binary tree is used for optimisation, a child node will only be polled/updated if the mouse cursor is hovering over the parent node.
 	For example, the 3 main buttons (arm,cps,exit - all siblings of each other) will only get updated if the mouse is hovering over the parent buttonsRect.*/
 	BinaryNode<Button*>* curNode = buttonsTree.AddHeadNode(&backgroundButton);
 	curNode = buttonsTree.AddChildNodeTo(curNode, &buttonsRect);

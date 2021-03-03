@@ -1,3 +1,6 @@
+//Copyright(C) 2021  Arrien Bidmead - Arrien.co.uk
+//See <Source.cpp> file for full copyright notice
+
 #include "Button.h"
 #include <SFML/Graphics.hpp>
 
