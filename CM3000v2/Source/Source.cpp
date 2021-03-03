@@ -131,8 +131,6 @@ void CM3000v2::Init()
 	};
 
 	//Binary Tree
-	//Right - Child
-	//Left - Sibling
 	/*The binary tree is used for optimisation, a child node will only polled/updated if the mouse cursor is hovering over the parent node.
 	For example, the 3 main buttons (arm,cps,exit - all siblings of each other) will only get updated if the mouse is hovering over the parent buttonsRect.*/
 	BinaryNode<Button*>* curNode = buttonsTree.AddHeadNode(&backgroundButton);
@@ -152,8 +150,22 @@ void CM3000v2::UpdateTraverse(BinaryNode<Button*>* node, bool& bShouldReDraw)
 	node->data->Poll(window);
 	bShouldReDraw |= node->data->bShouldReDraw;
 
-	if (node->right != nullptr && node->data->bHovered)
-		UpdateTraverse(node->right, bShouldReDraw);
+	if (node->right != nullptr)
+		if (node->data->bHovered)
+		{
+			UpdateTraverse(node->right, bShouldReDraw);
+		}
+		else
+		{
+			bool bContinue = false;
+			buttonsTree.PreOrderTraverse(node->right, [&](BinaryNode<Button*>* node)
+				{
+					bContinue |= node->data->bHovered;
+				});
+
+			if (bContinue)
+				UpdateTraverse(node->right, bShouldReDraw);
+		}
 
 	if (node->left != nullptr)
 		UpdateTraverse(node->left, bShouldReDraw);
