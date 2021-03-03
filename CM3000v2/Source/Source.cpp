@@ -76,23 +76,23 @@ void CM3000v2::Init()
 			armButton.hoverColor = { 170, 255, 170, 255 };
 
 			clickThread = std::thread([&]()
+			{
+				while (bArmed)
 				{
-					while (bArmed)
+					if (bActive)
 					{
-						if (bActive)
-						{
-							unsigned char timing = int(float(cpsDowntime) * 0.5);
-							mouse_event(MOUSEEVENTF_LEFTDOWN, MOUSEEVENTF_ABSOLUTE, MOUSEEVENTF_ABSOLUTE, 0, 0);
-							Sleep(timing);
-							mouse_event(MOUSEEVENTF_LEFTUP, MOUSEEVENTF_ABSOLUTE, MOUSEEVENTF_ABSOLUTE, 0, 0);
-							Sleep(timing);
-						}
-						else
-						{
-							Sleep(8);
-						}
+						unsigned char timing = int(float(cpsDowntime) * 0.5);
+						mouse_event(MOUSEEVENTF_LEFTDOWN, MOUSEEVENTF_ABSOLUTE, MOUSEEVENTF_ABSOLUTE, 0, 0);
+						Sleep(timing);
+						mouse_event(MOUSEEVENTF_LEFTUP, MOUSEEVENTF_ABSOLUTE, MOUSEEVENTF_ABSOLUTE, 0, 0);
+						Sleep(timing);
 					}
-				});
+					else
+					{
+						Sleep(8);
+					}
+				}
+			});
 		}
 		else
 		{
@@ -156,9 +156,9 @@ void CM3000v2::Init()
 	curNode = buttonsTree.AddSiblingNodeTo(curNode, &exitButton);
 
 	buttonsTree.PreOrderTraverse(buttonsTree.head, [&](BinaryNode<Button*>* node)
-		{
-			node->data->FinalizeInit();
-		});
+	{
+		node->data->FinalizeInit();
+	});
 }
 
 void CM3000v2::UpdateTraverse(BinaryNode<Button*>* node, bool& bShouldReDraw)
@@ -167,21 +167,24 @@ void CM3000v2::UpdateTraverse(BinaryNode<Button*>* node, bool& bShouldReDraw)
 	bShouldReDraw |= node->data->bShouldReDraw;
 
 	if (node->right != nullptr)
+	{
 		if (node->data->bHovered)
 		{
 			UpdateTraverse(node->right, bShouldReDraw);
 		}
 		else
 		{
+			//Check to see if any node deeper in the tree needs to be updated because it is in a hovered state
 			bool bContinue = false;
 			buttonsTree.PreOrderTraverse(node->right, [&](BinaryNode<Button*>* node)
-				{
-					bContinue |= node->data->bHovered;
-				});
+			{
+				bContinue |= node->data->bHovered;
+			});
 
 			if (bContinue)
 				UpdateTraverse(node->right, bShouldReDraw);
 		}
+	}
 
 	if (node->left != nullptr)
 		UpdateTraverse(node->left, bShouldReDraw);
@@ -229,9 +232,9 @@ bool CM3000v2::Update()
 void CM3000v2::Draw()
 {
 	buttonsTree.PreOrderTraverse(buttonsTree.head, [&](BinaryNode<Button*>* node)
-		{
-			node->data->Draw(&window);
-		});
+	{
+		node->data->Draw(&window);
+	});
 }
 
 void CM3000v2::Cleanup()
@@ -259,7 +262,7 @@ int CM3000v2::Run()
 	SetWindowLong(hwnd, GWL_STYLE, WS_POPUP | WS_VISIBLE);
 	DwmExtendFrameIntoClientArea(hwnd, &margins);
 
-	SetWindowPos(hwnd, HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOACTIVATE);		//locks app in front of everything else
+	SetWindowPos(hwnd, HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOACTIVATE);	//locks app in front of everything else
 
 	Init();
 
