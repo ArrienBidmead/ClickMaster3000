@@ -8,7 +8,9 @@
 
 #include "Source.h"
 
-#pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")		// Disable console
+#if !_DEBUG
+	#pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")		// Disable console
+#endif
 
 void CM3000v2::Init()
 {
