@@ -92,6 +92,7 @@ void Button::SetTextures(sf::Texture* baseTexture, sf::Texture* hoverTexture)
 {
 	baseSprite.setTexture(*baseTexture, true);
 	hoverSprite.setTexture(*hoverTexture, true);
+	bShouldReDraw = true;
 }
 
 void Button::FinalizeInit()

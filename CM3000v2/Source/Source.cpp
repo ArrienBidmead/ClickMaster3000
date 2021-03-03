@@ -5,11 +5,12 @@
 #include <Windows.h>
 #include <Dwmapi.h>
 #include <thread>
+#include "BinaryTree.h"
 
 #include "Source.h"
 
 #if !_DEBUG
-	#pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")		// Disable console
+	#pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")	// Disable console
 #endif
 
 void CM3000v2::Init()
@@ -129,18 +130,44 @@ void CM3000v2::Init()
 		window.close();
 	};
 
-	for (auto& e : buttons)
-		e->FinalizeInit();
+	//Binary Tree
+	//Right - Child
+	//Left - Sibling
+	/*The binary tree is used for optimisation, a child node will only polled/updated if the mouse cursor is hovering over the parent node.
+	For example, the 3 main buttons (arm,cps,exit - all siblings of each other) will only get updated if the mouse is hovering over the parent buttonsRect.*/
+	buttonsTree.head = new BinaryNode<Button*>;
+	buttonsTree.head->data = &backgroundButton;
+	buttonsTree.head->right = new BinaryNode<Button*>;
+	buttonsTree.head->right->data = &buttonsRect;
+	buttonsTree.head->right->right = new BinaryNode<Button*>;
+	buttonsTree.head->right->right->data = &armButton;
+	buttonsTree.head->right->right->left = new BinaryNode<Button*>;
+	buttonsTree.head->right->right->left->data = &cpsButton;
+	buttonsTree.head->right->right->left->left = new BinaryNode<Button*>;
+	buttonsTree.head->right->right->left->left->data = &exitButton;
+
+	buttonsTree.PreOrderTraverse(buttonsTree.head, [&](BinaryNode<Button*>* node)
+		{
+			node->data->FinalizeInit();
+		});
+}
+
+void CM3000v2::UpdateTraverse(BinaryNode<Button*>* node, bool& bShouldReDraw)
+{
+	node->data->Poll(window);
+	bShouldReDraw |= node->data->bShouldReDraw;
+
+	if (node->right != nullptr && node->data->bHovered)
+		UpdateTraverse(node->right, bShouldReDraw);
+
+	if (node->left != nullptr)
+		UpdateTraverse(node->left, bShouldReDraw);
 }
 
 bool CM3000v2::Update()
 {
 	bool bDraw = false;
-	for (auto& e : buttons)
-	{
-		e->Poll(window);
-		bDraw |= e->bShouldReDraw;
-	}
+	UpdateTraverse(buttonsTree.head, bDraw);
 
 	if (bDraggingWindow)
 	{
@@ -178,8 +205,10 @@ bool CM3000v2::Update()
 
 void CM3000v2::Draw()
 {
-	for (auto& e : buttons)
-		e->Draw(&window);
+	buttonsTree.PreOrderTraverse(buttonsTree.head, [&](BinaryNode<Button*>* node)
+		{
+			node->data->Draw(&window);
+		});
 }
 
 void CM3000v2::Cleanup()
@@ -189,6 +218,11 @@ void CM3000v2::Cleanup()
 		bArmed = false;
 		clickThread.join();
 	}
+
+	buttonsTree.PostOrderTraverse(buttonsTree.head, [&](BinaryNode<Button*>* node)
+	{
+		delete node;
+	});
 }
 
 int CM3000v2::Run()

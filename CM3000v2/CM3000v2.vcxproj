@@ -146,10 +146,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\BinaryTree.cpp" />
     <ClCompile Include="Source\Button.cpp" />
     <ClCompile Include="Source\Source.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\BinaryTree.h" />
     <ClInclude Include="Source\Button.h" />
     <ClInclude Include="Source\Source.h" />
     <ClInclude Include="Source\Textures.h" />

@@ -29,16 +29,11 @@ class CM3000v2
 	Button exitButton;
 	sf::Texture exitTex;
 
-	Button* buttons[5] = 
-	{
-		&backgroundButton,
-		&buttonsRect,
-		&armButton,
-		&cpsButton,
-		&exitButton
-	};
+	BinaryTree<Button*> buttonsTree;
 
 	std::thread clickThread;
+
+	void UpdateTraverse(BinaryNode<Button*>* node, bool& bShouldReDraw);
 
 	void Init();
 	bool Update();
