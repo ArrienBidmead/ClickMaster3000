@@ -1,5 +1,5 @@
 <img align="left" src="DevOnlyImages/CM3000Icon.png" width="100px"/>
-<h1>ClickMaster 3000 v2</h1>
+<h1>ClickMaster 3000</h1>
 <a href="https://arrien.co.uk/ClickMaster3000.html">Arrien.co.uk/ClickMaster3000</a>
 <br><br>
 
