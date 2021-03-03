@@ -2,5 +2,8 @@ ClickMaster3000 version 2
 
 TODO:
 
-- Make click and unclick happen on seperate frames so they can both register on non event driven games
-- Optimise so that buttons won't get polled if mouse isn't over window. Probably applicable to drawing too
+- Optimise so that buttons won't get polled if mouse isn't over window.
+
+Suggestions:
+
+- Make buttons array a binary tree so I can automatically optimise not updating buttons if parent button isn't being hovered over

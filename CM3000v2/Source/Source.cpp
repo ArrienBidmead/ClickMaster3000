@@ -138,7 +138,6 @@ bool CM3000v2::Update()
 	{
 		e->Poll(window);
 		bDraw |= e->bShouldReDraw;
-		e->bShouldReDraw = false;
 	}
 
 	if (bDraggingWindow)

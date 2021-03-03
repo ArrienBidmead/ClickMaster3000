@@ -70,6 +70,8 @@ void Button::Poll(sf::RenderWindow &window)
 
 void Button::Draw(sf::RenderWindow* window)
 {
+	bShouldReDraw = false;
+
 	if (getTransform() != baseSprite.getTransform())
 	{
 		baseSprite.setPosition(getPosition());
