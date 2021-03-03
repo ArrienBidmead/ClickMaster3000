@@ -33,7 +33,7 @@ void CM3000v2::Init()
 	};
 
 	buttonsRect.baseSprite.setTexture(whiteTex, true);
-	buttonsRect.baseColor = sf::Color(0, 0, 0, 255);
+	buttonsRect.baseColor = sf::Color(10, 10, 10, 255);
 	buttonsRect.setPosition(8, 8);
 	buttonsRect.bStaticAppearance = true;
 	buttonsRect.setScale(sf::Vector2f(8 * 3, 8));
@@ -127,20 +127,19 @@ void CM3000v2::Init()
 		window.close();
 	};
 
-	buttons[0] = &backgroundButton;
-	buttons[1] = &buttonsRect;
-	buttons[2] = &armButton;
-	buttons[3] = &cpsButton;
-	buttons[4] = &exitButton;
-
 	for (auto& e : buttons)
 		e->FinalizeInit();
 }
 
-void CM3000v2::Update()
+bool CM3000v2::Update()
 {
+	bool bDraw = false;
 	for (auto& e : buttons)
+	{
 		e->Poll(window);
+		bDraw |= e->bShouldReDraw;
+		e->bShouldReDraw = false;
+	}
 
 	if (bDraggingWindow)
 	{
@@ -172,6 +171,8 @@ void CM3000v2::Update()
 			backgroundButton.UpdateColors();
 		}
 	}
+
+	return bDraw;
 }
 
 void CM3000v2::Draw()
@@ -228,13 +229,14 @@ int CM3000v2::Run()
 				window.close();
 		}
 
-		Update();
+		if (Update())
+		{
+			window.clear(sf::Color::Transparent);
 
-		window.clear(sf::Color::Transparent);
+			Draw();
 
-		Draw();
-
-		window.display();
+			window.display();
+		}
 	}
 
 	Cleanup();

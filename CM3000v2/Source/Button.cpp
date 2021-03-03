@@ -104,14 +104,17 @@ void Button::UpdateColors()
 		if (bPressed)
 		{
 			baseSprite.setColor(pressColor);
+			bShouldReDraw = true;
 		}
 		else
 		{
 			baseSprite.setColor(hoverColor);
+			bShouldReDraw = true;
 		}
 	}
 	else
 	{
 		baseSprite.setColor(baseColor);
+		bShouldReDraw = true;
 	}
 }

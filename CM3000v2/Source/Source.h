@@ -29,12 +29,19 @@ class CM3000v2
 	Button exitButton;
 	sf::Texture exitTex;
 
-	Button* buttons[5];
+	Button* buttons[5] = 
+	{
+		&backgroundButton,
+		&buttonsRect,
+		&armButton,
+		&cpsButton,
+		&exitButton
+	};
 
 	std::thread clickThread;
 
 	void Init();
-	void Update();
+	bool Update();
 	void Draw();
 	void Cleanup();
 public:

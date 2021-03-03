@@ -15,6 +15,7 @@ class Button : public sf::Transformable
 {
 public:
 	bool bStaticAppearance = false;	// If the button shouldn't change appearance according to hover/ press
+	bool bShouldReDraw = true;
 
 	sf::Sprite baseSprite;
 	sf::Sprite hoverSprite;
