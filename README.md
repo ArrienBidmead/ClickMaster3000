@@ -12,13 +12,3 @@ The ClickMaster 3000 is a graphically rich program made with C++ and SFML to aid
 1. Arm the clicker by pressing the power button.
 2. Set the CPS (clicks per second) to what you want.
 3. Toggle “Capslock” to engage/ disengage clicker.
-
-# Developer Stuff
-
-## TODO
-
-- Optimise so that buttons won't get polled if mouse isn't over window.
-
-## Suggestions
-
-- Make buttons array a binary tree so I can automatically optimise not updating buttons if parent button isn't being hovered over

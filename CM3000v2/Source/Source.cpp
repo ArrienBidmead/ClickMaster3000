@@ -135,16 +135,11 @@ void CM3000v2::Init()
 	//Left - Sibling
 	/*The binary tree is used for optimisation, a child node will only polled/updated if the mouse cursor is hovering over the parent node.
 	For example, the 3 main buttons (arm,cps,exit - all siblings of each other) will only get updated if the mouse is hovering over the parent buttonsRect.*/
-	buttonsTree.head = new BinaryNode<Button*>;
-	buttonsTree.head->data = &backgroundButton;
-	buttonsTree.head->right = new BinaryNode<Button*>;
-	buttonsTree.head->right->data = &buttonsRect;
-	buttonsTree.head->right->right = new BinaryNode<Button*>;
-	buttonsTree.head->right->right->data = &armButton;
-	buttonsTree.head->right->right->left = new BinaryNode<Button*>;
-	buttonsTree.head->right->right->left->data = &cpsButton;
-	buttonsTree.head->right->right->left->left = new BinaryNode<Button*>;
-	buttonsTree.head->right->right->left->left->data = &exitButton;
+	BinaryNode<Button*>* curNode = buttonsTree.AddHeadNode(&backgroundButton);
+	curNode = buttonsTree.AddChildNodeTo(curNode, &buttonsRect);
+	curNode = buttonsTree.AddChildNodeTo(curNode, &armButton);
+	curNode = buttonsTree.AddSiblingNodeTo(curNode, &cpsButton);
+	curNode = buttonsTree.AddSiblingNodeTo(curNode, &exitButton);
 
 	buttonsTree.PreOrderTraverse(buttonsTree.head, [&](BinaryNode<Button*>* node)
 		{
