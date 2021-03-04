@@ -163,7 +163,7 @@
     <ResourceCompile Include="CM3000v2.rc" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\DevOnlyImages\CursorIcon3.ico" />
+    <Image Include="CursorIcon3.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -48,7 +48,7 @@
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\DevOnlyImages\CursorIcon3.ico">
+    <Image Include="CursorIcon3.ico">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

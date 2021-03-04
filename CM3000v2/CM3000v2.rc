@@ -26,7 +26,7 @@ LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
 
 // Icon with lowest ID value placed first to ensure application icon
 // remains consistent on all systems.
-IDI_ICON2               ICON                    "F:\\Arrien\\Documents\\VisualStudioProjects\\CM3000v2\\DevOnlyImages\\CursorIcon3.ico"
+IDI_ICON2               ICON                    "CursorIcon3.ico"
 
 #endif    // English (United States) resources
 /////////////////////////////////////////////////////////////////////////////
