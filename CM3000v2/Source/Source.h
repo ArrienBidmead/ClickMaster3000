@@ -23,6 +23,7 @@ class CM3000v2
 	sf::Texture cpsTex;
 	sf::Texture cpsTex1;
 	sf::Texture cpsTex2;
+	sf::Texture cpsTex3;
 	unsigned char cpsState = 1;
 	unsigned char cpsDowntime = 16;
 

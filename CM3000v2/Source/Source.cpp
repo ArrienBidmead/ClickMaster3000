@@ -108,13 +108,14 @@ void CM3000v2::Init()
 	cpsTex.loadFromMemory(textures.CPSButton0png, sizeof(textures.CPSButton0png));
 	cpsTex1.loadFromMemory(textures.CPSButton1png, sizeof(textures.CPSButton1png));
 	cpsTex2.loadFromMemory(textures.CPSButton2png, sizeof(textures.CPSButton2png));
+	cpsTex3.loadFromMemory(textures.CPSButton3png, sizeof(textures.CPSButton3png));
 	cpsButton.SetTextures(&cpsTex1, &overlapTex);
 	cpsButton.setPosition(overlapTex.getSize().x + 8, 8);
 	cpsButton.baseColor = { 180, 180, 180, 255 };
 	cpsButton.hoverColor = { 140, 100, 30, 255 };
 	cpsButton.OnReleaseBinding = [&]()
 	{
-		if (cpsState < 2)
+		if (cpsState < 3)
 			cpsState++;
 		else
 			cpsState = 0;
@@ -132,6 +133,10 @@ void CM3000v2::Init()
 		case 2:
 			cpsButton.baseSprite.setTexture(cpsTex2);
 			cpsDowntime = 8;
+			break;
+		case 3:
+			cpsButton.baseSprite.setTexture(cpsTex3);
+			cpsDowntime = 2;	//Try 0 if you want but I guarantee you'll be disappointed
 			break;
 		}
 	};
