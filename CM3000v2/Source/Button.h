@@ -1,4 +1,5 @@
 #pragma once
+
 #include <SFML/Graphics/Transformable.hpp>
 #include <SFML/Graphics/Color.hpp>
 #include <SFML/Graphics/Sprite.hpp>

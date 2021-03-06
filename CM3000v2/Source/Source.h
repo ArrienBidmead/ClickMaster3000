@@ -34,6 +34,8 @@ class CM3000v2
 
 	std::thread clickThread;
 
+	void AutoClicker();
+
 	void UpdateTraverse(BinaryNode<Button*>* node, bool& bShouldReDraw);
 
 	void Init();

@@ -75,24 +75,7 @@ void CM3000v2::Init()
 			armButton.baseColor = { 0, 255, 0, 255 };
 			armButton.hoverColor = { 170, 255, 170, 255 };
 
-			clickThread = std::thread([&]()
-			{
-				while (bArmed)
-				{
-					if (bActive)
-					{
-						unsigned char timing = int(float(cpsDowntime) * 0.5);
-						mouse_event(MOUSEEVENTF_LEFTDOWN, MOUSEEVENTF_ABSOLUTE, MOUSEEVENTF_ABSOLUTE, 0, 0);
-						Sleep(timing);
-						mouse_event(MOUSEEVENTF_LEFTUP, MOUSEEVENTF_ABSOLUTE, MOUSEEVENTF_ABSOLUTE, 0, 0);
-						Sleep(timing);
-					}
-					else
-					{
-						Sleep(8);
-					}
-				}
-			});
+			clickThread = std::thread(&CM3000v2::AutoClicker, this);
 		}
 		else
 		{
@@ -164,6 +147,25 @@ void CM3000v2::Init()
 	{
 		node->data->FinalizeInit();
 	});
+}
+
+void CM3000v2::AutoClicker()
+{
+	while (bArmed)
+	{
+		if (bActive)
+		{
+			unsigned char timing = int(float(cpsDowntime) * 0.5);
+			mouse_event(MOUSEEVENTF_LEFTDOWN, MOUSEEVENTF_ABSOLUTE, MOUSEEVENTF_ABSOLUTE, 0, 0);
+			Sleep(timing);
+			mouse_event(MOUSEEVENTF_LEFTUP, MOUSEEVENTF_ABSOLUTE, MOUSEEVENTF_ABSOLUTE, 0, 0);
+			Sleep(timing);
+		}
+		else
+		{
+			Sleep(8);
+		}
+	}
 }
 
 void CM3000v2::UpdateTraverse(BinaryNode<Button*>* node, bool& bShouldReDraw)
