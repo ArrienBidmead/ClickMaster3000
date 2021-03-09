@@ -260,16 +260,21 @@ void CM3000v2::Cleanup()
 
 int CM3000v2::Run()
 {
+#if !_DEBUG
 	window.create(sf::VideoMode(208, 80), "ClickMaster 3000", sf::Style::None);
+#else
+	window.create(sf::VideoMode(208, 80), "ClickMaster 3000", sf::Style::Close);
+#endif
 
+	HWND hwnd = window.getSystemHandle();
+	SetWindowPos(hwnd, HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOACTIVATE);	//locks app in front of everything else
+
+#if !_DEBUG
 	MARGINS margins;
 	margins.cxLeftWidth = -1;
-	HWND hwnd = window.getSystemHandle();
-
 	SetWindowLong(hwnd, GWL_STYLE, WS_POPUP | WS_VISIBLE);
 	DwmExtendFrameIntoClientArea(hwnd, &margins);
-
-	SetWindowPos(hwnd, HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOACTIVATE);	//locks app in front of everything else
+#endif
 
 	Init();
 
