@@ -1,7 +1,7 @@
 TODO:
 
--
+- Investigate performance of UpdateTraverse(...). The method for checking if a node lower in the tree is hovered may be worse than just traversing the whole tree once before hand. Consider caching what was hovered over in the last frame so that we don't need to traverse the tree at all.
 
 Suggestions:
 
--
+- A drop-down menu much like the original design where you can change settings like which mouse button is clicked.

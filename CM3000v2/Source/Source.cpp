@@ -25,7 +25,9 @@
 
 #include "Source.h"
 
-#if !_DEBUG
+#define _RELEASE !_DEBUG
+
+#if _RELEASE
 	#pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")	// Disable console
 #endif
 
@@ -260,7 +262,7 @@ void CM3000v2::Cleanup()
 
 int CM3000v2::Run()
 {
-#if !_DEBUG
+#if _RELEASE
 	window.create(sf::VideoMode(208, 80), "ClickMaster 3000", sf::Style::None);
 #else
 	window.create(sf::VideoMode(208, 80), "ClickMaster 3000", sf::Style::Close);
@@ -269,7 +271,7 @@ int CM3000v2::Run()
 	HWND hwnd = window.getSystemHandle();
 	SetWindowPos(hwnd, HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOACTIVATE);	//locks app in front of everything else
 
-#if !_DEBUG
+#if _RELEASE
 	MARGINS margins;
 	margins.cxLeftWidth = -1;
 	SetWindowLong(hwnd, GWL_STYLE, WS_POPUP | WS_VISIBLE);
