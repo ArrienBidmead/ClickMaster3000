@@ -124,6 +124,8 @@ void CM3000v2::Init()
 			cpsDowntime = 2;	//Try 0 if you want but I guarantee you'll be disappointed
 			break;
 		}
+
+		cpsDowntimeHalf = int(float(cpsDowntime) * 0.5);
 	};
 
 	exitTex.loadFromMemory(textures.ExitButton1png, sizeof(textures.ExitButton1png));
@@ -157,11 +159,10 @@ void CM3000v2::AutoClicker()
 	{
 		if (bActive)
 		{
-			unsigned char timing = int(float(cpsDowntime) * 0.5);
 			mouse_event(MOUSEEVENTF_LEFTDOWN, MOUSEEVENTF_ABSOLUTE, MOUSEEVENTF_ABSOLUTE, 0, 0);
-			Sleep(timing);
+			Sleep(cpsDowntimeHalf);
 			mouse_event(MOUSEEVENTF_LEFTUP, MOUSEEVENTF_ABSOLUTE, MOUSEEVENTF_ABSOLUTE, 0, 0);
-			Sleep(timing);
+			Sleep(cpsDowntimeHalf);
 		}
 		else
 		{
