@@ -9,6 +9,7 @@ The ClickMaster 3000 is a graphically rich program made with C++ and SFML to aid
 ![preview](DevOnlyImages/ProgramPicture.png "Preview")
 
 # Usage
-1. Arm the clicker by pressing the power button.
-2. Set the CPS (clicks per second) to what you want.
-3. Toggle “Capslock” to engage/ disengage clicker.
+1. Ensure Capslock is toggled OFF.<br>
+2. Press power button to arm clicker.<br>
+  a. Clicks per second can be changed with CPS button.<br>
+3. Toggle Capslock ON to engage clicker.
