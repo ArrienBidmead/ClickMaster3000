@@ -3,7 +3,9 @@
 <a href="https://arrien.co.uk/ClickMaster3000.html">Arrien.co.uk/ClickMaster3000</a>
 <br><br>
 
-The ClickMaster 3000 is a graphically rich program made with C++ and SFML to aid in the playing of the popular game Cookie Clicker. This simple program when engaged will automatically click the mouse very rapidly (auto clicker) which allows the user to simply leave their mouse over the cookie and let the points roll in.
+The ClickMaster 3000 is a graphically rich program for Windows made with C++ and SFML to aid in the playing of the popular game Cookie Clicker. This simple program when engaged will automatically click the mouse very rapidly (auto clicker) which allows the user to simply leave their mouse over the cookie and let the points roll in.
+
+NOTE: The .exe gets flagged as malware by anti-virus software, so maybe don't download it. I wouldn't blame you for not trusting some random guy on the internet.
 <br><br>
 
 ![preview](DevOnlyImages/ProgramPicture.png "Preview")
