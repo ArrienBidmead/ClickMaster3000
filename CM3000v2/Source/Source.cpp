@@ -31,6 +31,7 @@
 	#pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")	// Disable console
 #endif
 
+#pragma optimize( "", off )	//Textures struct with its large arrays causes long compile times, this disables optimisation for this function only.
 void CM3000v2::Init()
 {
 	Textures textures;
@@ -152,6 +153,7 @@ void CM3000v2::Init()
 		node->data->FinalizeInit();
 	});
 }
+#pragma optimize( "", on )
 
 void CM3000v2::AutoClicker()
 {
