@@ -31,19 +31,10 @@
 	#pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")	// Disable console
 #endif
 
-#pragma optimize( "", off )	//Textures struct with its large arrays causes long compile times, this disables optimisation for this function only.
 void CM3000v2::Init()
 {
-	Textures textures;
+	LoadTextures();
 
-	sf::Image ic;
-	ic.loadFromMemory(textures.Iconpng, sizeof(textures.Iconpng));
-	window.setIcon(ic.getSize().x, ic.getSize().y, ic.getPixelsPtr());
-
-	overlapTex.loadFromMemory(textures.ButtonOverlap1png, sizeof(textures.ButtonOverlap1png));
-	whiteTex.loadFromMemory(textures.WhiteSquarepng, sizeof(textures.WhiteSquarepng));
-
-	backTex.loadFromMemory(textures.OuterBox1png, sizeof(textures.OuterBox1png));
 	backgroundButton.baseSprite.setTexture(backTex, true);
 	backgroundButton.setPosition(0, 0);
 	backgroundButton.baseColor = { 128, 128, 128, 255 };
@@ -64,7 +55,6 @@ void CM3000v2::Init()
 		bDraggingWindow = false;
 	};
 
-	armTex.loadFromMemory(textures.ArmButton1png, sizeof(textures.ArmButton1png));
 	armButton.SetTextures(&armTex, &overlapTex);
 	armButton.setPosition(8, 8);
 	armButton.baseColor = { 180, 180, 180, 255 };
@@ -91,10 +81,6 @@ void CM3000v2::Init()
 		armButton.UpdateColors();
 	};
 
-	cpsTex.loadFromMemory(textures.CPSButton0png, sizeof(textures.CPSButton0png));
-	cpsTex1.loadFromMemory(textures.CPSButton1png, sizeof(textures.CPSButton1png));
-	cpsTex2.loadFromMemory(textures.CPSButton2png, sizeof(textures.CPSButton2png));
-	cpsTex3.loadFromMemory(textures.CPSButton3png, sizeof(textures.CPSButton3png));
 	cpsButton.SetTextures(&cpsTex1, &overlapTex);
 	cpsButton.setPosition(overlapTex.getSize().x + 8, 8);
 	cpsButton.baseColor = { 180, 180, 180, 255 };
@@ -129,7 +115,6 @@ void CM3000v2::Init()
 		cpsDowntimeHalf = int(float(cpsDowntime) * 0.5);
 	};
 
-	exitTex.loadFromMemory(textures.ExitButton1png, sizeof(textures.ExitButton1png));
 	exitButton.SetTextures(&exitTex, &overlapTex);
 	exitButton.setPosition(overlapTex.getSize().x * 2 + 8, 8);
 	exitButton.baseColor = { 180, 180, 180, 255 };
@@ -152,6 +137,26 @@ void CM3000v2::Init()
 	{
 		node->data->FinalizeInit();
 	});
+}
+
+#pragma optimize( "", off )	//Textures struct with its large arrays causes long compile times, this disables optimisation for this function only.
+void CM3000v2::LoadTextures()
+{
+	Textures textures;
+
+	sf::Image ic;
+	ic.loadFromMemory(textures.Iconpng, sizeof(textures.Iconpng));
+	window.setIcon(ic.getSize().x, ic.getSize().y, ic.getPixelsPtr());
+
+	overlapTex.loadFromMemory(textures.ButtonOverlap1png, sizeof(textures.ButtonOverlap1png));
+	whiteTex.loadFromMemory(textures.WhiteSquarepng, sizeof(textures.WhiteSquarepng));
+	backTex.loadFromMemory(textures.OuterBox1png, sizeof(textures.OuterBox1png));
+	armTex.loadFromMemory(textures.ArmButton1png, sizeof(textures.ArmButton1png));
+	cpsTex.loadFromMemory(textures.CPSButton0png, sizeof(textures.CPSButton0png));
+	cpsTex1.loadFromMemory(textures.CPSButton1png, sizeof(textures.CPSButton1png));
+	cpsTex2.loadFromMemory(textures.CPSButton2png, sizeof(textures.CPSButton2png));
+	cpsTex3.loadFromMemory(textures.CPSButton3png, sizeof(textures.CPSButton3png));
+	exitTex.loadFromMemory(textures.ExitButton1png, sizeof(textures.ExitButton1png));
 }
 #pragma optimize( "", on )
 

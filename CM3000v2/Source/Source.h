@@ -39,6 +39,8 @@ class CM3000v2
 
 	void UpdateTraverse(BinaryNode<Button*>* node, bool& bShouldReDraw);
 
+	void LoadTextures();
+
 	void Init();
 	bool Update();
 	void Draw();
