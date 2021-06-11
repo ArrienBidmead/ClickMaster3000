@@ -210,9 +210,11 @@ void CM3000v2::UpdateTraverse(BinaryNode<Button*>* node, bool& bShouldReDraw)
 bool CM3000v2::Update()
 {
 	bool bDraw = false;
-	UpdateTraverse(buttonsTree.head, bDraw);
-
-	if (bDraggingWindow)
+	if (!bDraggingWindow)
+	{
+		UpdateTraverse(buttonsTree.head, bDraw);
+	}
+	else
 	{
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 		{
