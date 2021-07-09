@@ -362,3 +362,5 @@ MigrationBackup/
 FodyWeavers.xsd
 
 !Vendor/**
+
+DevOnlyImages/IM3000v2Output.txt
