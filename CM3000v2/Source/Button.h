@@ -29,7 +29,6 @@ public:
 	bool bPressed = false;
 	bool bRejectPress = false;
 
-	Button();
 	void Poll(sf::RenderWindow &window);
 	void Draw(sf::RenderWindow* window);
 

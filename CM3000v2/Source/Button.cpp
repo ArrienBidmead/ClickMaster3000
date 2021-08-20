@@ -4,11 +4,6 @@
 #include "Button.h"
 #include <SFML/Graphics.hpp>
 
-Button::Button()
-{
-	
-}
-
 void Button::Poll(sf::RenderWindow &window)
 {
 	sf::Vector2i mousePos = sf::Mouse::getPosition(window);
@@ -35,8 +30,7 @@ void Button::Poll(sf::RenderWindow &window)
 				bRejectPress = false;
 			}
 		}
-		else
-		if (!bPressed)
+		else if (!bPressed)
 		{
 			if (bMouseLeftDown)
 			{

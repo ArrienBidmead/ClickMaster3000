@@ -2,7 +2,6 @@
 //See <Source.cpp> file for full copyright notice
 
 #include "BinaryTree.h"
-#include "Button.h"
 
 template<class T>
 void BinaryTree<T>::PreOrderTraverse(BinaryNode<T>* node, std::function<void(BinaryNode<T>*)> function)
@@ -63,11 +62,14 @@ BinaryNode<T>* BinaryTree<T>::AddHeadNode(T data)
 		return nullptr;
 	else
 	{
-		head = new BinaryNode<Button*>;
+		head = new BinaryNode<T>;
 		head->data = data;
 
 		return head;
 	}
 }
 
+// Explicit instantiation for Button class. Required for .cpp file template definitions.
+// Add all classes/structs that use BinaryTree or you will get linker errors.
+#include "Button.h"
 template struct BinaryTree<Button*>;
