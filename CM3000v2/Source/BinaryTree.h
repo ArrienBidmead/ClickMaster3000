@@ -6,8 +6,8 @@ template<class T>
 struct BinaryNode
 {
 	T data;
-	BinaryNode<T>* right = nullptr;
-	BinaryNode<T>* left = nullptr;
+	BinaryNode<T>* child = nullptr;
+	BinaryNode<T>* sibling = nullptr;
 };
 
 template<class T>

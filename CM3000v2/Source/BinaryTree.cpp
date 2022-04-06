@@ -8,21 +8,21 @@ void BinaryTree<T>::PreOrderTraverse(BinaryNode<T>* node, std::function<void(Bin
 {
 	function(node);
 
-	if (node->right != nullptr)
-		PreOrderTraverse(node->right, function);
+	if (node->sibling != nullptr)
+		PreOrderTraverse(node->sibling, function);
 
-	if (node->left != nullptr)
-		PreOrderTraverse(node->left, function);
+	if (node->child != nullptr)
+		PreOrderTraverse(node->child, function);
 }
 
 template<class T>
 void BinaryTree<T>::PostOrderTraverse(BinaryNode<T>* node, std::function<void(BinaryNode<T>*)> function)
 {
-	if (node->right != nullptr)
-		PostOrderTraverse(node->right, function);
+	if (node->sibling != nullptr)
+		PostOrderTraverse(node->sibling, function);
 
-	if (node->left != nullptr)
-		PostOrderTraverse(node->left, function);
+	if (node->child != nullptr)
+		PostOrderTraverse(node->child, function);
 
 	function(node);
 }
@@ -30,28 +30,28 @@ void BinaryTree<T>::PostOrderTraverse(BinaryNode<T>* node, std::function<void(Bi
 template<class T>
 BinaryNode<T>* BinaryTree<T>::AddChildNodeTo(BinaryNode<T>* parent, T data)
 {
-	if (parent->right != nullptr)
-		return AddSiblingNodeTo(parent->right, data);
+	if (parent->child != nullptr)
+		return AddSiblingNodeTo(parent->child, data);
 	else
 	{
-		parent->right = new BinaryNode<T>;
-		parent->right->data = data;
+		parent->child = new BinaryNode<T>;
+		parent->child->data = data;
 
-		return parent->right;
+		return parent->child;
 	}
 }
 
 template<class T>
 BinaryNode<T>* BinaryTree<T>::AddSiblingNodeTo(BinaryNode<T>* sibling, T data)
 {
-	if (sibling->left != nullptr)
-		return AddSiblingNodeTo(sibling->left, data);
+	if (sibling->sibling != nullptr)
+		return AddSiblingNodeTo(sibling->sibling, data);
 	else
 	{
-		sibling->left = new BinaryNode<T>;
-		sibling->left->data = data;
+		sibling->sibling = new BinaryNode<T>;
+		sibling->sibling->data = data;
 
-		return sibling->left;
+		return sibling->sibling;
 	}
 }
 

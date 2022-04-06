@@ -180,31 +180,31 @@ void CM3000v2::AutoClicker()
 
 void CM3000v2::UpdateTraverse(BinaryNode<Button*>* node, bool& bShouldReDraw)
 {
+	if (node->sibling != nullptr)
+		UpdateTraverse(node->sibling, bShouldReDraw);
+
 	node->data->Poll(window);
 	bShouldReDraw |= node->data->bShouldReDraw;
 
-	if (node->right != nullptr)
+	if (node->child != nullptr)
 	{
 		if (node->data->bHovered)
 		{
-			UpdateTraverse(node->right, bShouldReDraw);
+			UpdateTraverse(node->child, bShouldReDraw);
 		}
 		else
 		{
 			//Check to see if any node deeper in the tree needs to be updated because it is in a hovered state
 			bool bContinue = false;
-			buttonsTree.PreOrderTraverse(node->right, [&](BinaryNode<Button*>* node)
+			buttonsTree.PreOrderTraverse(node->child, [&](BinaryNode<Button*>* node)
 			{
 				bContinue |= node->data->bHovered;
 			});
 
 			if (bContinue)
-				UpdateTraverse(node->right, bShouldReDraw);
+				UpdateTraverse(node->child, bShouldReDraw);
 		}
 	}
-
-	if (node->left != nullptr)
-		UpdateTraverse(node->left, bShouldReDraw);
 }
 
 bool CM3000v2::Update()
