@@ -21,6 +21,7 @@
 #include <Windows.h>
 #include <Dwmapi.h>
 #include <thread>
+#include <atomic>
 #include "BinaryTree.h"
 
 #include "Source.h"

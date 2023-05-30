@@ -16,8 +16,10 @@ class CM3000v2
 
 	Button armButton;
 	sf::Texture armTex;
-	bool bArmed = false;
-	bool bActive = false;
+
+	std::atomic_bool bArmed = false;
+	std::atomic_bool bActive = false;
+	std::atomic_uchar cpsDowntimeHalf = 8;
 
 	Button cpsButton;
 	sf::Texture cpsTex;
@@ -26,7 +28,6 @@ class CM3000v2
 	sf::Texture cpsTex3;
 	unsigned char cpsState = 1;
 	unsigned char cpsDowntime = 16;
-	unsigned char cpsDowntimeHalf = 8;
 
 	Button exitButton;
 	sf::Texture exitTex;
